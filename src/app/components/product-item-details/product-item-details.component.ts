@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { Product } from 'src/app/models/products';
 import { ProductsService } from 'src/app/services/products.service';
 
@@ -11,13 +11,7 @@ import { ProductsService } from 'src/app/services/products.service';
 })
 export class ProductItemDetailsComponent {
   id:any
-  data:Product = {
-    id: 0,
-    name: '',
-    price: 0,
-    url: '',
-    description: ''
-  }
+  data:any={}
   loading:boolean = false
   constructor(private route:ActivatedRoute , private service:ProductsService) {
    this.id = this.route.snapshot.paramMap.get("id")
@@ -26,17 +20,20 @@ export class ProductItemDetailsComponent {
   
   ngOnInit(): void {
     this.getProductById(this.id)
-    console.log(this.data)
+    //console.log(this.data)
   }
 
   
 
   getProductById(id: number): void {
-    this.service.getProductById(id).subscribe(product => {
-      console.log(product)
-      this.data = product;
-      console.log(this.data)
-    });
-  }
+    this.service.getAllProducts().pipe(
+      map(products => products.find(product => product.id ==id)),
+      tap(product => this.data = product)
+    )
+    .subscribe();
+  
+    
+    
+    }
  
 }

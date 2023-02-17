@@ -13,6 +13,8 @@ import { SideBarComponent } from './layout/side-bar/side-bar.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from "@angular/forms";
 import { SpinnerComponent } from './layout/spinner/spinner.component';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -26,12 +28,15 @@ import { SpinnerComponent } from './layout/spinner/spinner.component';
     SideBarComponent,
     SpinnerComponent,
     
+    
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    MatSnackBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]

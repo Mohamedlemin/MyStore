@@ -10,6 +10,7 @@ export class CartComponent {
   cartProducts:any[] = [];
   total:number = 0;
   success:boolean = false
+  validQuntity:boolean=true
   ngOnInit(): void {
     this.getCartProducts()
   }
@@ -28,9 +29,13 @@ export class CartComponent {
     localStorage.setItem("cart" , JSON.stringify(this.cartProducts))
   }
   minsAmount(index:number) {
-    this.cartProducts[index].quantity--
+    if(this.cartProducts[index].quantity<=1){
+      this.validQuntity=false
+    }else{
+          this.cartProducts[index].quantity--
     this.getCartTotal()
     localStorage.setItem("cart" , JSON.stringify(this.cartProducts))
+    }
   }
   detectChange() {
     this.getCartTotal()

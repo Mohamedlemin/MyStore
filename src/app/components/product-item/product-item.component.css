@@ -1,5 +1,5 @@
 .item {
-    width: 95%;
+    width: 97%;
     text-decoration: none;
     color: #333;
     margin: 15px;
@@ -39,4 +39,8 @@
     background-color: #b4d0f1;
     padding: 3px 7px;
     border-radius: 5px;
+}
+
+.button1{
+ margin-left: 25px;
 }

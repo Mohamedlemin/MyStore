@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 import { Product } from 'src/app/models/products';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-product-item',
@@ -13,11 +14,24 @@ export class ProductItemComponent implements OnInit {
   @Output() item = new EventEmitter();
   addButton:boolean = false;
   amount:number = 0
+  validQuntity:boolean=true
+
+  constructor(
+    private snackBar: MatSnackBar,
+  ) {}
 
  ngOnInit(): void {}
 
  add() {
-  
-    this.item.emit({item:this.data ,quantity:this.amount })
+    if (this.amount<=0) {
+      this.validQuntity=false
+      this.snackBar.open('ops! Quantity number', 'Dismiss', {
+        horizontalPosition: 'right',
+        verticalPosition: 'top',
+        duration: 3000,
+      });
+    }else{
+      this.item.emit({item:this.data ,quantity:this.amount })
+    }
   }
 }

@@ -4,20 +4,20 @@
 
 
 <div class="cartBox">
-    <h2 class="text-primary">Shopping Cart</h2>
+    <h3 class="text-primary">Shopping Cart</h3>
   <div class="headCart">
     <p class="lead">You have <label class="text-danger ">{{cartProducts.length}}</label> item in your cart</p>
     <span class="text-danger card-header" (click)="clearCart()">Clear Shopping Cart</span>
   </div>
     <table class="table table-striped">
-        <thead>
+        <thead class="fxFlexAlign="center>
             <tr>
-                <th></th>
+                <th>Image</th>
                 <th>Name</th>
                 <th>Price</th>
                 <th style="width: 25%;">Quantity</th>
-                <th>Totle</th>
-                <th></th>
+                <th>Totale</th>
+                <th>Action</th>
             </tr>
         </thead>
         <tbody>
@@ -40,12 +40,12 @@
         </tbody> 
         <tfoot>
             <tr>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th>Total : {{total}} $</th>
-                <th><button class="btn btn-success" (click)="addCart()">Order Now</button></th>
+                <th><input class="form-control" type="text" placeholder="Full Name"></th>
+                <th><input class="form-control" type="text" placeholder="Address"></th>
+                <th><input class="form-control" type="text" placeholder="Credit cart number"></th>
+                
+                <th colspan="2">Total : {{total}} $</th>
+                <th><button class="btn btn-success" (click)="addCart()" style="width: 105%;">Checkout</button></th>
             </tr>
         </tfoot>
     </table>

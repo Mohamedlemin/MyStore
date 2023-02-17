@@ -29,13 +29,17 @@ export class ProductListComponent implements OnInit{
       }else {
         this.cartProducts.push(event)
         localStorage.setItem("cart" , JSON.stringify(this.cartProducts))
+        alert("Well done !!")
+
       }
     } else {
       this.cartProducts.push(event)
       localStorage.setItem("cart" , JSON.stringify(this.cartProducts))
+      alert("well done !!")
+
     }
   }
-  
+
   }
 
 

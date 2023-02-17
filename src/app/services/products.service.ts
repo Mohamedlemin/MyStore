@@ -14,9 +14,5 @@ export class ProductsService {
     return this.http.get<Product[]>('../../assets/data.json');
   }
 
-  getProductById(id: number): Observable<any> {
-    return this.getAllProducts().pipe(
-      map(products => products.find(product => product.id === id))
-    );
-  }
+ 
 }

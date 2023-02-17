@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { map, tap } from 'rxjs/operators';
 import { Product } from 'src/app/models/products';
@@ -11,8 +11,11 @@ import { ProductsService } from 'src/app/services/products.service';
 })
 export class ProductItemDetailsComponent {
   id:any
-  data:any={}
+  data:any
   loading:boolean = false
+  amount:number = 0
+  @Output() item = new EventEmitter();
+
   constructor(private route:ActivatedRoute , private service:ProductsService) {
    this.id = this.route.snapshot.paramMap.get("id")
    console.log(this.id)
@@ -23,7 +26,9 @@ export class ProductItemDetailsComponent {
     //console.log(this.data)
   }
 
-  
+  add() {
+    this.item.emit({item:this.data ,quantity:this.amount })
+  }
 
   getProductById(id: number): void {
     this.service.getAllProducts().pipe(

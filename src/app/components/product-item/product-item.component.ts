@@ -17,6 +17,7 @@ export class ProductItemComponent implements OnInit {
  ngOnInit(): void {}
 
  add() {
+  
     this.item.emit({item:this.data ,quantity:this.amount })
   }
 }

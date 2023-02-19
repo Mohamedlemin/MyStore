@@ -40,15 +40,45 @@
         </tbody> 
         <tfoot>
             <tr>
-                <th><input class="form-control" type="text" placeholder="Full Name"></th>
-                <th><input class="form-control" type="text" placeholder="Address"></th>
-                <th><input class="form-control" type="text" placeholder="Credit cart number"></th>
-                
-                <th colspan="2">Total : {{total}} $</th>
-                <th><button class="btn btn-success" (click)="addCart()" style="width: 105%;">Checkout</button></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th colspan="2"><h5><strong>Total : {{total}} $</strong></h5></th>
             </tr>
         </tfoot>
+      
     </table>
+    <form class="row g-3" *ngIf="cartProducts.length>=1">
+        <div class="col-md-6 col-xl-6">
+            <div class="form-floating"> 
+                <!-- <input type="text" class="form-control" formControlName="fullName" id="fullName">  -->
+                <input type="text" id="name" class="form-control" [(ngModel)]="name" name="name" minlength="3"  placeholder="(min 3)"
+                (ngModelChange)="validateForm()">
+
+                <label for="Caisse">Full Name (min 3)</label></div>
+         </div>
+         <div class="col-md-6 col-xl-6">
+            <div class="form-floating"> 
+                <input type="text" class="form-control" id="address" [(ngModel)]="address" name="address" placeholder="(min 6 )"
+                minlength="6" (ngModelChange)="validateForm()">
+                <!-- <input type="text" class="form-control" formControlName="adress" id="adress" >  -->
+                <label for="Caisse">Adress (min 6)</label></div>
+         </div>
+         <div class="col-md-12 col-xl-12">
+            <div class="form-floating">
+                <input type="number" class="form-control" id="creditcard" [(ngModel)]="creditcard" name="creditcard" maxlength="16"
+                placeholder="(should be 16 digits )"
+                 (ngModelChange)="validateForm()">
+                <!-- <input type="number" class="form-control" formControlName="creditCart" id="creditCart" >  -->
+                <label for="creditCart">Credit cart number (16 digits)</label></div>
+         </div>
+        
+         <button class="btn btn-success" type="button" (click)="checkout()" [disabled]="!isValid" style="width: 105%;">Checkout</button>
+
+                
+         <!-- <button class="btn btn-success" (Click)="checkout()" [disabled]="!isValid" style="width: 105%;">Checkout</button> -->
+     </form>
     
 </div>
 <div class="alert alert-success" role="alert" *ngIf="success"><strong>Well done!</strong> Your Order is Successfully Send</div>

@@ -1,5 +1,5 @@
 
-<app-header></app-header>
-<app-side-bar></app-side-bar>
+<app-header *ngIf="!_router.url.startsWith('/success')"></app-header>
+<app-side-bar *ngIf="!_router.url.startsWith('/success')"></app-side-bar>
 
 <router-outlet></router-outlet>

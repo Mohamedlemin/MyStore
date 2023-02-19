@@ -25,7 +25,7 @@ export class ProductItemComponent implements OnInit {
  add() {
     if (this.amount<=0) {
       this.validQuntity=false
-      this.snackBar.open('ops! Quantity number', 'Dismiss', {
+      this.snackBar.open('ops! Quantity number is not valid', 'Dismiss', {
         horizontalPosition: 'right',
         verticalPosition: 'top',
         duration: 3000,

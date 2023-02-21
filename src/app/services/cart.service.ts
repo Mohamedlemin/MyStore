@@ -76,6 +76,7 @@ export class CartService {
   }
 
   getCartTotal() {
+    this.total=0
     for (let x in this.cartProducts) {
        this.total += this.cartProducts[x].product.price * this.cartProducts[x].quantity;
        console.log(this.total);

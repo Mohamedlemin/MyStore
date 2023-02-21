@@ -31,7 +31,7 @@ export class ProductItemComponent implements OnInit {
         duration: 3000,
       });
     }else{
-      this.item.emit({item:this.data ,quantity:this.amount })
+      this.item.emit({product:this.data ,quantity:this.amount })
     }
   }
 }

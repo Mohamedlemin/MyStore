@@ -16,6 +16,8 @@ import { SpinnerComponent } from './layout/spinner/spinner.component';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SuccessComponent } from './components/success/success.component';
+import { ProductsService } from './services/products.service';
+import { CartService } from './services/cart.service';
 
 @NgModule({
   declarations: [

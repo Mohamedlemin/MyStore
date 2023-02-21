@@ -8,11 +8,14 @@ import { Product } from '../models/products';
   providedIn: 'root'
 })
 export class ProductsService {
+  
   constructor(private http: HttpClient) { }
 
   getAllProducts(): Observable<Product[]> {
     return this.http.get<Product[]>('../../assets/data.json');
   }
+
+  
 
  
 }

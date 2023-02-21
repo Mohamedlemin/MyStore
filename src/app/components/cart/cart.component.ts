@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { CartService } from 'src/app/services/cart.service';
 
 @Component({
   selector: 'app-cart',
@@ -10,27 +11,30 @@ import { Router } from '@angular/router';
 })
 export class CartComponent implements OnInit{
   // form!: FormGroup;
-  cartProducts:any[] = [];
-  total:number = 0;
-  success:boolean = false
-  validQuntity:boolean=true
+ 
  
   name: string = '';
   address: string = '';
   creditcard: string = '';
   isValid: boolean = false;
-  constructor(private router: Router, private snackBar: MatSnackBar,) {}
 
+  cartProducts: any[] = [];
+  total: number = 0;
+
+  constructor(private router: Router, private snackBar: MatSnackBar, private cartService :CartService) {  }
+ 
+ 
+  validQuntity:boolean=true
 
   ngOnInit(): void {
-    this.getCartProducts()
-    // this.form = new FormGroup({
-    //   fullName: new FormControl('', [Validators.required,Validators.minLength(3)]),
-    //   adress: new FormControl('', [Validators.required,Validators.minLength(6)]),
-    //   creditCart: new FormControl('', [Validators.required,Validators.minLength(16)]),
-   
-    // });
+    this.cartService.cartSubject.subscribe(cartProducts => {
+      this.cartProducts = cartProducts;
+    });
+    this.cartService.getCartProducts();
+    this.total=this.cartService.total;
+    // console.log(this.cartProducts)
   }
+
   validateForm() {
     const nameRegex = /^[a-zA-Z ]{3,}$/;
     const addressRegex = /^[a-zA-Z0-9\s,'-]{6,}$/;
@@ -52,70 +56,39 @@ export class CartComponent implements OnInit{
     
   
 
-  getCartProducts() {
-    if("cart" in localStorage) {
-      this.cartProducts = JSON.parse(localStorage.getItem("cart")!)
-    }
-    this.getCartTotal()
-  }
+      addAmount(index: number) {
+        this.cartService.addAmount(index);
+        this.total=this.cartService.total;
 
-  addAmount(index:number) {
-    this.cartProducts[index].quantity++
-    this.getCartTotal()
-    localStorage.setItem("cart" , JSON.stringify(this.cartProducts))
-  }
-  minsAmount(index:number) {
-    if(this.cartProducts[index].quantity<=1){
-      this.validQuntity=false
-      this.snackBar.open('Product quntity cannot be less than 1 !!', 'Dismiss', {
-        horizontalPosition: 'right',
-        verticalPosition: 'top',
-        duration: 3000,
-      });
-    }else{
-          this.cartProducts[index].quantity--
-    this.getCartTotal()
-    localStorage.setItem("cart" , JSON.stringify(this.cartProducts))
-    }
-  }
-  detectChange() {
-    this.getCartTotal()
-    localStorage.setItem("cart" , JSON.stringify(this.cartProducts))
+      }
     
-  }
+      minsAmount(index: number) {
+        this.cartService.minsAmount(index);
+        this.total=this.cartService.total;
 
-  deleteProduct(index:number) {
-    this.cartProducts.splice(index , 1)
-    this.getCartTotal()
-    localStorage.setItem("cart" , JSON.stringify(this.cartProducts))
-    this.snackBar.open('Product deleted succesfully !!', 'Dismiss', {
-      horizontalPosition: 'right',
-      verticalPosition: 'top',
-      duration: 3000,
-    });
-  }
-
-  clearCart() {
-    this.cartProducts = []
-    this.getCartTotal()
-    localStorage.setItem("cart" , JSON.stringify(this.cartProducts))
-    this.snackBar.open('your card is cleared !!', 'Dismiss', {
-      horizontalPosition: 'right',
-      verticalPosition: 'top',
-      duration: 3000,
-    });
-  }
-  getCartTotal() {
-    this.total = 0
-    for(let x in this.cartProducts) {
-      this.total += this.cartProducts[x].item.price * this.cartProducts[x].quantity;
-    }
-  }
-
-  addCart() {
-  
-    this.success = true
+      }
     
-  }
+      deleteProduct(index: number) {
+        this.cartService.deleteProduct(index);
+        this.total=this.cartService.total;
 
-}
+      }
+    
+      clearCart() {
+        this.cartService.clearCart();
+        this.total=this.cartService.total;
+
+      }
+
+      detectChange() {
+        this.cartService.detectChange();
+        this.total=this.cartService.total;
+
+      }
+    
+      getTotal() {
+        this.cartService.getCartTotal();
+        this.total=this.cartService.total;
+
+      }
+    }

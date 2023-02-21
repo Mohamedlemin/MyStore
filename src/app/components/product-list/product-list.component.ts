@@ -11,7 +11,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class ProductListComponent implements OnInit{
 
   products: Product[] = [];
-  cartProducts:any[] = [];
+  cartProducts: { product: Product; quantity: number }[] = [];
 
   constructor(private dataService: ProductsService,
     private snackBar: MatSnackBar,
@@ -30,7 +30,7 @@ export class ProductListComponent implements OnInit{
   addTocart(event:any){
     if("cart" in localStorage) {
       this.cartProducts = JSON.parse(localStorage.getItem("cart")!)
-      let exist = this.cartProducts.find(item => item.item.id == event.item.id)
+      let exist = this.cartProducts.find(item => item.product.id == event.product.id)
       if(exist) {
         this.snackBar.open('Product is already in your cart', 'Dismiss', {
           horizontalPosition: 'right',
